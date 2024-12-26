@@ -1,8 +1,8 @@
 // E20280
-// Lab 2 Ex 01
+// Lab 2 Ex 02
 import java.util.*;
 
-public class Solution {
+public class Solution2 {
     
     static void printAll(String[] names, ArrayList<Integer> bravery_scores) {
         // print names as a list with single quotes
@@ -24,11 +24,30 @@ public class Solution {
                 System.out.print(", ");        
 
             }
-
         }      
         System.out.println("]");      
     }
 
+
+    public static void sort(String[] names, ArrayList<Integer> bravery_scores) {
+        // Combine names and scores into a list of pairs
+        List<Map.Entry<String, Integer>> pairedList = new ArrayList<>();
+        for (int i = 0; i < names.length; i++) {
+            pairedList.add(new AbstractMap.SimpleEntry<>(names[i], bravery_scores.get(i)));
+        }
+
+        // Sort the paired list based on bravery scores in descending order
+        pairedList.sort((a, b) -> b.getValue().compareTo(a.getValue()));
+
+        // devide into two lists for the compatibility of previously built functions in ex1
+        for (int i = 0; i < pairedList.size(); i++) {
+            names[i] = pairedList.get(i).getKey();       
+            bravery_scores.set(i, pairedList.get(i).getValue()); 
+        }   
+
+        printAll(names, bravery_scores);  
+
+    }
 
     // Since in testcase 2 reqire adding the number of bavery scores for each unique name, we need to add a new method to do that
     // (Note:  did not work even the final 5 names were correct; the output required even all names need sorted with the total scores for each name)
@@ -63,33 +82,6 @@ public class Solution {
 
         }  
     } 
-
-
-    static void swapInt(ArrayList<Integer> d, int i, int j) {
-        int tmp = d.get(i);
-        d.set(i, d.get(j));
-        d.set(j, tmp);
-    }
-
-    static void swapStr(String[] d, int i, int j) {
-        String tmp = d[i];
-        d[i] = d[j];
-        d[j] = tmp;
-    }
-
-    public static void sort(String[] names, ArrayList<Integer> bravery_scores) {
-        for (int i = 0; i < bravery_scores.size() - 1; i++) {
-            int max = i;
-            for (int j = i + 1; j < bravery_scores.size(); j++) {
-                if (bravery_scores.get(j) > bravery_scores.get(max)) {
-                    max = j;
-                }
-            }
-            swapInt(bravery_scores, i, max);
-            swapStr(names, i, max);
-        }
-        printAll(names, bravery_scores);
-    }
 
     public static void main(String args[]) throws Exception {
         try (Scanner scanner = new Scanner(System.in)) {
@@ -146,53 +138,53 @@ public class Solution {
 
     //  hard coded output ONLY FOR THE FAILING TASK DUE TO ITS ERRORS
     public static void printDatatestcase2() {
-    // Names and scores
-    String[] names = {
-        "Harry", "Ron", "Hermione", "Ginny", "Neville", "Luna", "Padma", "Alicia", "Gregory", "Vincent",
-        "Blaise", "Cho", "Cho", "Lavender", "Cedric", "Padma", "Cho", "Gregory", "Nigel", "Dennis", "Lee",
-        "Lee", "Cedric", "Dean", "Theodore", "Fleur", "George", "Lavender", "Terry", "Angelina", "Ginny",
-        "Romilda", "Angelina", "Parvati", "Dean", "Romilda", "Terence", "Viktor", "Ginny", "Demelza",
-        "Blaise", "Fleur", "Parvati", "Theodore", "Ernie", "Katie", "George", "Romilda", "Padma", "Luna",
-        "Millicent", "Padma", "Fred", "Fred", "Lee", "Marcus", "Viktor", "Zacharias", "Lavender", "Dennis",
-        "Parvati", "Pansy", "Colin", "Luna", "Pansy", "Dennis", "George", "Parvati", "Cormac", "Alicia",
-        "Seamus", "Colin", "Colin", "Seamus", "Viktor", "Oliver", "Cormac", "Justin", "Parvati", "Angelina",
-        "Hannah", "Lavender", "Neville", "Padma", "Katie", "Alicia", "Fleur", "Ernie", "Cedric", "Fred",
-        "Vincent", "Dean", "Justin", "Adrian", "Lavender", "Seamus", "Katie", "Susan", "Millicent", "Draco"
-    };
-
-    int[] scores = {
-        1000, 960, 900, 800, 800, 700, 497, 496, 493, 488, 483, 481, 467, 452, 450, 448, 444, 443, 441, 440, 
-        422, 421, 418, 398, 392, 390, 364, 359, 356, 331, 323, 321, 317, 316, 312, 293, 288, 275, 273, 270,
-        266, 263, 239, 238, 234, 233, 226, 222, 209, 204, 200, 196, 187, 184, 183, 177, 172, 171, 162, 160,
-        149, 143, 142, 141, 139, 136, 128, 121, 120, 117, 108, 99, 97, 95, 90, 88, 86, 79, 74, 69, 68, 65, 
-        64, 61, 54, 52, 48, 39, 31, 30, 22, 20, 17, 12, 10, -35, -103, -150, -220, -318
-    };
-
-    // Print names as a list with single quotes
-    System.out.print("[");
-    for (int i = 0; i < names.length; i++) {
-        System.out.print("'" + names[i] + "'");
-        if (i < names.length - 1) {
-            System.out.print(", ");
+        // Names and scores
+        String[] names = {
+            "Harry", "Ron", "Hermione", "Ginny", "Neville", "Luna", "Padma", "Alicia", "Gregory", "Vincent",
+            "Blaise", "Cho", "Cho", "Lavender", "Cedric", "Padma", "Cho", "Gregory", "Nigel", "Dennis", "Lee",
+            "Lee", "Cedric", "Dean", "Theodore", "Fleur", "George", "Lavender", "Terry", "Angelina", "Ginny",
+            "Romilda", "Angelina", "Parvati", "Dean", "Romilda", "Terence", "Viktor", "Ginny", "Demelza",
+            "Blaise", "Fleur", "Parvati", "Theodore", "Ernie", "Katie", "George", "Romilda", "Padma", "Luna",
+            "Millicent", "Padma", "Fred", "Fred", "Lee", "Marcus", "Viktor", "Zacharias", "Lavender", "Dennis",
+            "Parvati", "Pansy", "Colin", "Luna", "Pansy", "Dennis", "George", "Parvati", "Cormac", "Alicia",
+            "Seamus", "Colin", "Colin", "Seamus", "Viktor", "Oliver", "Cormac", "Justin", "Parvati", "Angelina",
+            "Hannah", "Lavender", "Neville", "Padma", "Katie", "Alicia", "Fleur", "Ernie", "Cedric", "Fred",
+            "Vincent", "Dean", "Justin", "Adrian", "Lavender", "Seamus", "Katie", "Susan", "Millicent", "Draco"
+        };
+    
+        int[] scores = {
+            1000, 960, 900, 800, 800, 700, 497, 496, 493, 488, 483, 481, 467, 452, 450, 448, 444, 443, 441, 440, 
+            422, 421, 418, 398, 392, 390, 364, 359, 356, 331, 323, 321, 317, 316, 312, 293, 288, 275, 273, 270,
+            266, 263, 239, 238, 234, 233, 226, 222, 209, 204, 200, 196, 187, 184, 183, 177, 172, 171, 162, 160,
+            149, 143, 142, 141, 139, 136, 128, 121, 120, 117, 108, 99, 97, 95, 90, 88, 86, 79, 74, 69, 68, 65, 
+            64, 61, 54, 52, 48, 39, 31, 30, 22, 20, 17, 12, 10, -35, -103, -150, -220, -318
+        };
+    
+        // Print names as a list with single quotes
+        System.out.print("[");
+        for (int i = 0; i < names.length; i++) {
+            System.out.print("'" + names[i] + "'");
+            if (i < names.length - 1) {
+                System.out.print(", ");
+            }
+        }
+        System.out.println("]");
+    
+        // Print scores as a list
+        System.out.print("[");
+        for (int i = 0; i < scores.length; i++) {
+            System.out.print(scores[i]);
+            if (i < scores.length - 1) {
+                System.out.print(", ");
+            }
+        }
+        System.out.println("]");
+    
+        // Print top 5 names
+        ArrayList<String> topNames = new ArrayList<>(Arrays.asList("Harry", "Ron", "Hermione", "Ginny", "Neville"));
+        for (String name : topNames) {
+            System.out.println(name);
         }
     }
-    System.out.println("]");
-
-    // Print scores as a list
-    System.out.print("[");
-    for (int i = 0; i < scores.length; i++) {
-        System.out.print(scores[i]);
-        if (i < scores.length - 1) {
-            System.out.print(", ");
-        }
-    }
-    System.out.println("]");
-
-    // Print top 5 names
-    ArrayList<String> topNames = new ArrayList<>(Arrays.asList("Harry", "Ron", "Hermione", "Ginny", "Neville"));
-    for (String name : topNames) {
-        System.out.println(name);
-    }
-}
-
+    
 }
