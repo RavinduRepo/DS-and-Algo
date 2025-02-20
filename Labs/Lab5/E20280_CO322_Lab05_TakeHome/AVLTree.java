@@ -1,33 +1,6 @@
 // Lab 05 – Trees 
- 
-
+// E/20/280
 // Task 1 
-
-// Have a look at the following Java class for an AVL tree node. 
-
-// class Node 
-// { 
-// int key, height; 
-// Node left, right; 
-
-// Node(int d) 
-// { 
-// key = d; 
-// height = 1; 
-// } 
-// } 
-   
-// The height of a node is calculated as the height of the taller of its subtrees + 1. 
-// When a node is created, its height is initialized to 1. 
-
-// Consider the given AVL tree below. 
-
-// 1.  Implement the above AVL tree using the given Node class. 
-// 2.  Write methods for tree traversal: 
-// Pre-order 
-// In-order 
-// Post-order 
-// Write a main method to demonstrate these traversals on your AVL tree.
 
 public class AVLTree {
     Node root; // Initial root node
@@ -43,15 +16,15 @@ public class AVLTree {
     }
 
     Node rightRotate(Node y) {
-        // Get the left as x and right as T2
+        // getting the left as x and right as T2
         Node x = y.left;
         Node T2 = x.right;
 
-        // Perform the rotation
+        // pergormming the rotation
         x.right = y;
         y.left = T2;
 
-        // Update the heights
+        // updating the heights
         y.height = Math.max(height(y.left), height(y.right)) + 1;
         x.height = Math.max(height(x.left), height(x.right)) + 1;
 
@@ -82,6 +55,7 @@ public class AVLTree {
     }
 
     Node insert(Node node, int key) {
+        // insering
         if (node == null)
             return new Node(key);
 
@@ -159,26 +133,30 @@ public class AVLTree {
         root.height = Math.max(height(root.left), height(root.right)) + 1;
 
         int balance = getBalance(root);
-
+  
         if (balance > 1 && getBalance(root.left) >= 0)
-            return rightRotate(root);
+            return rightRotate(root);  
 
+  
         if (balance > 1 && getBalance(root.left) < 0) {
             root.left = leftRotate(root.left);
             return rightRotate(root);
-        }
+        }  
+
 
         if (balance < -1 && getBalance(root.right) <= 0)
             return leftRotate(root);
+  
 
         if (balance < -1 && getBalance(root.right) > 0) {
             root.right = rightRotate(root.right);
             return leftRotate(root);
-        }
-
+        }   
         return root;
-    }
 
+
+    }
+  
     Node minValueNode(Node node) {
         Node current = node;
         while (current.left != null)
@@ -187,6 +165,7 @@ public class AVLTree {
         return current;
     }
 
+    // traversal methods
     void preOrder(Node node) {
         if (node != null) {
             System.out.print(node.key + " ");
@@ -216,9 +195,10 @@ public class AVLTree {
 
         int[] keys = { 8, 2, 10, 9, 1, 5 };
         for (int key : keys) {
+            // insertig
             tree.root = tree.insert(tree.root, key);
         }
-
+        // Traversing
         System.out.println("Preorder traversal: ");
         tree.preOrder(tree.root);
         System.out.println();
@@ -231,8 +211,10 @@ public class AVLTree {
         tree.postOrder(tree.root);
         System.out.println();
 
+        // Sarcing
         System.out.println("Search for key 10: " + (tree.search(tree.root, 10) != null ? "Found" : "Not Found"));
 
+        // Removing
         tree.root = tree.remove(tree.root, 10);
         System.out.println("Inorder traversal after removing key 10: ");
         tree.inOrder(tree.root);
